@@ -9,5 +9,7 @@ Rails.application.routes.draw do
     post "/sessions" => "sessions#create"
 
     post "/pantry_items" => "pantry_items#create"
+
+    get "/search_recipes" => "search_recipes#index"
   end
 end
