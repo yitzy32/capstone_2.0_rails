@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     post "/users" => "users#create"
 
     post "/sessions" => "sessions#create"
+
+    post "/pantry_items" => "pantry_items#create"
   end
 end

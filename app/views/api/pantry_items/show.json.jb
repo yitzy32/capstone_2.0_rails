@@ -1,0 +1,9 @@
+{
+  id: @pantry_item.id,
+  name: @pantry_item.name,
+  ingredient_id: @pantry_item.ingredient_id,
+  unit: @pantry_item.unit,
+  starting_amount: @pantry_item.starting_amount,
+  current_amount: @pantry_item.current_amount,
+  user_id: @pantry_item.user_id,
+}
