@@ -10,10 +10,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_005424) do
+ActiveRecord::Schema.define(version: 2021_05_21_002750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "directions", force: :cascade do |t|
+    t.integer "number"
+    t.string "instruction"
+    t.integer "recipe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredient_recipes", force: :cascade do |t|
+    t.integer "ingredient_id"
+    t.integer "recipe_id"
+    t.string "unit"
+    t.decimal "amount", precision: 6, scale: 2
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "pantry_items", force: :cascade do |t|
+    t.string "name"
+    t.integer "ingredient_id"
+    t.string "starting_unit"
+    t.decimal "starting_amount", precision: 6, scale: 2
+    t.string "current_unit"
+    t.decimal "current_amount", precision: 6, scale: 2
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.string "title"
+    t.integer "prep_time"
+    t.integer "servings"
+    t.string "source_name"
+    t.string "source_url"
+    t.string "image"
+    t.string "summary"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
