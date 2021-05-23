@@ -70,7 +70,53 @@ class Api::SearchRecipesController < ApplicationController
       @directions << { number: @number, instruction: @instruction }
       @recipe[:directions] = @directions
     end
-    ap @recipe
     render "show.json.jb"
+  end
+
+  def create
+    response = HTTP.get("https://api.spoonacular.com/recipes/#{params[:id]}/information?includeNutrition=false&apiKey=#{Rails.application.credentials.spoonacular_api[:api_key]}")
+    @data = JSON.parse(response)
+
+    @recipe = Recipe.new(
+      title: @data["title"],
+      prep_time: @data["readyInMinutes"],
+      servings: @data["servings"],
+      source_name: @data["sourceName"],
+      source_url: @data["sourceUrl"],
+      image: @data["image"],
+      summary: @data["summary"],
+      user_id: current_user.id,
+    )
+    @recipe.save!
+
+    @data["extendedIngredients"].each do |extended_ingredient|
+      p extended_ingredient["name"]
+      @ingredient = Ingredient.find_by(name: extended_ingredient["name"])
+      if @ingredient == nil
+        @ingredient = Ingredient.new(name: extended_ingredient["name"])
+        @ingredient.save!
+      end
+
+      @ingredient_recipe = IngredientRecipe.new(
+        ingredient_id: @ingredient.id,
+        recipe_id: @recipe.id,
+        unit: extended_ingredient["unit"],
+        amount: extended_ingredient["amount"],
+        user_id: current_user.id,
+      )
+      @ingredient_recipe.save!
+    end
+
+    response = HTTP.get("https://api.spoonacular.com/recipes/#{params[:id]}/analyzedInstructions?apiKey=#{Rails.application.credentials.spoonacular_api[:api_key]}").to_s
+    @data = JSON.parse(response)
+
+    @direction = Direction.new(
+      number: @data[0]["steps"][0]["number"],
+      instruction: @data[0]["steps"][0]["step"],
+      recipe_id: @recipe.id,
+    )
+    @direction.save!
+
+    render json: { message: "hello" }
   end
 end
