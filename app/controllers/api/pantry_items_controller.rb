@@ -1,9 +1,10 @@
 class Api::PantryItemsController < ApplicationController
   def create
-    @ingredient = Ingredient.new(
-      name: params[:name],
-    )
-    @ingredient.save
+    @ingredient = Ingredient.find_by(name: params[:name])
+    if @ingredient == nil
+      @ingredient = Ingredient.new(name: params[:name])
+      @ingredient.save!
+    end
 
     @pantry_item = PantryItem.new(
       name: @ingredient.name,
