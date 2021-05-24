@@ -1,0 +1,19 @@
+{
+  id: @recipe.id,
+  title: @recipe.title,
+  prep_time: @recipe.prep_time,
+  servings: @recipe.servings,
+  source_name: @recipe.source_name,
+  source_url: @recipe.source_url,
+  image: @recipe.image,
+  summary: @recipe.summary,
+  user_id: @recipe.user_id,
+  measurements: @recipe.ingredient_recipes.map do |measurement|
+    {
+      id: measurement.id,
+      name: measurement.ingredient.name,
+      unit: measurement.unit,
+      amount: measurement.amount,
+    }
+  end,
+}
