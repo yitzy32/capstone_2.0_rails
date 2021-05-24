@@ -1,4 +1,9 @@
 class Api::PantryItemsController < ApplicationController
+  def index
+    @pantry_items = PantryItem.where(user_id: current_user.id)
+    render "index.json.jb"
+  end
+
   def create
     @ingredient = Ingredient.find_by(name: params[:name])
     if @ingredient == nil
