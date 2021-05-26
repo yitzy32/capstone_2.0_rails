@@ -7,32 +7,10 @@ class Api::SearchRecipesController < ApplicationController
       @recipe = {}
       @id = recipe["id"]
       @title = recipe["title"]
-      @prep_time = recipe["readyInMinutes"]
       @image = recipe["image"]
-      @servings = recipe["servings"]
-      @source_name = recipe["sourceName"]
-      @source_url = recipe["sourceUrl"]
-      @summary = recipe["summary"]
-      @recipe = { id: @id, title: @title, prep_time: @prep_time, image: @image, servings: @servings, summary: @summary, source_name: @source_name, source_url: @source_url }
+      @recipe = { id: @id, title: @title, image: @image }
       @recipes << @recipe
-
-      @ingredients = []
-      @data["extendedIngredients"].each do |extended_ingredient|
-        @name = extended_ingredient["name"]
-        @amount = extended_ingredient["amount"]
-        @unit = extended_ingredient["unit"]
-        @ingredients << { name: @name, amount: @amount, unit: @unit }
-        @recipe[:ingredients] = @ingredients
-      end
-      @directions = []
-      @data["analyzedInstructions"][0]["steps"].each do |step|
-        @number = step["number"]
-        @instruction = step["step"]
-        @directions << { number: @number, instruction: @instruction }
-        @recipe[:directions] = @directions
-      end
     end
-    ap @recipes
     render "index.json.jb"
   end
 
