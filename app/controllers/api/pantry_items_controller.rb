@@ -46,4 +46,10 @@ class Api::PantryItemsController < ApplicationController
     end
     render "show.json.jb"
   end
+
+  def destroy
+    @pantry_item = PantryItem.find_by(id: params[:id])
+    @pantry_item.destroy
+    render json: { message: "Item Removed" }
+  end
 end
