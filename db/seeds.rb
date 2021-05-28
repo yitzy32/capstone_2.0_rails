@@ -37,7 +37,7 @@ Direction.create!([
 PantryItem.create!([
   { name: "butter", ingredient_id: 1, unit: "oz", starting_amount: "16.0", current_amount: "16.0", user_id: 1, image: "https://spoonacular.com/cdn/ingredients_500x500/butter.jpg" },
   { name: "marshmallows", ingredient_id: 2, unit: "oz", starting_amount: "24.0", current_amount: "24.0", user_id: 1, image: "https://spoonacular.com/cdn/ingredients_500x500/marshmallows.jpg" },
-  { name: "rice krispies", ingredient_id: 3, unit: "oz", starting_amount: "42.0", current_amount: "42.0", user_id: 1, image: "https://spoonacular.com/cdn/ingredients_500x500/rice-krispies.jpg" },
+  { name: "rice krispies", ingredient_id: 3, unit: "oz", starting_amount: "84.0", current_amount: "84.0", user_id: 1, image: "https://spoonacular.com/cdn/ingredients_500x500/rice-krispies.jpg" },
   { name: "sugar", ingredient_id: 4, unit: "oz", starting_amount: "64.0", current_amount: "64.0", user_id: 1, image: nil },
   { name: "all purpose flour", ingredient_id: 5, unit: "lb", starting_amount: "5.0", current_amount: "5.0", user_id: 1, image: nil },
 ])
