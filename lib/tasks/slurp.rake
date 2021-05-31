@@ -8,9 +8,10 @@ namespace :slurp do
     csv.each do |row|
       i = Ingredient.new
       i.name = row["name"]
+      i.spoonacular_id = row["spoonacular_id"]
       i.save
-      # puts row.to_hash
+      puts row.to_hash
     end
-    # puts csv_text
+    puts csv_text
   end
 end

@@ -65,15 +65,18 @@ class Api::SearchRecipesController < ApplicationController
       summary: @data["summary"],
       user_id: current_user.id,
     )
-    @recipe.save!
+    @recipe.save
 
     @data["extendedIngredients"].each do |extended_ingredient|
-      p extended_ingredient["name"]
       @ingredient = Ingredient.find_by(name: extended_ingredient["name"])
       if @ingredient == nil
-        @ingredient = Ingredient.new(name: extended_ingredient["name"])
-        @ingredient.save!
+        @ingredient = Ingredient.new(
+          name: extended_ingredient["name"],
+          spoonacular_id: extended_ingredient["id"],
+        )
+        @ingredient.save
       end
+      @ingredient.save
 
       @ingredient_recipe = IngredientRecipe.new(
         ingredient_id: @ingredient.id,
@@ -82,7 +85,7 @@ class Api::SearchRecipesController < ApplicationController
         amount: extended_ingredient["amount"],
         user_id: current_user.id,
       )
-      @ingredient_recipe.save!
+      @ingredient_recipe.save
     end
 
     response = HTTP.get("https://api.spoonacular.com/recipes/#{params[:id]}/analyzedInstructions?apiKey=#{Rails.application.credentials.spoonacular_api[:api_key]}").to_s
@@ -93,8 +96,8 @@ class Api::SearchRecipesController < ApplicationController
       instruction: @data[0]["steps"][0]["step"],
       recipe_id: @recipe.id,
     )
-    @direction.save!
+    @direction.save
 
-    render json: { message: "hello" }
+    render "show.json.jb"
   end
 end
