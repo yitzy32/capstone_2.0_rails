@@ -19,5 +19,7 @@ Rails.application.routes.draw do
     get "/recipes" => "recipes#index"
     get "/recipes/:id" => "recipes#show"
     patch "/recipes" => "recipes#update"
+
+    get "/ingredients" => "ingredients#index"
   end
 end
