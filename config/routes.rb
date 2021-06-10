@@ -23,5 +23,6 @@ Rails.application.routes.draw do
     get "/ingredients" => "ingredients#index"
 
     get "/shopping_list" => "shopping_list#index"
+    post "/shopping_list" => "shopping_list#create"
   end
 end

@@ -1,0 +1,6 @@
+{
+  id: @shopping_list.id,
+  name: @shopping_list.name,
+  unit: @shopping_list.unit,
+  amount: @shopping_list.amount,
+}
