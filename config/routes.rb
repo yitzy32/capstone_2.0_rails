@@ -21,5 +21,7 @@ Rails.application.routes.draw do
     patch "/recipes/:id" => "recipes#update"
 
     get "/ingredients" => "ingredients#index"
+
+    get "/shopping_list" => "shopping_list#index"
   end
 end

@@ -1,0 +1,8 @@
+@shopping_list.map do |item|
+  {
+    id: item.id,
+    name: item.name,
+    unit: item.unit,
+    amount: item.amount,
+  }
+end
