@@ -13,4 +13,10 @@ class Api::ShoppingListController < ApplicationController
     @shopping_list.save
     render "show.json.jb"
   end
+
+  def delete
+    @shopping_list = ShoppingList.find_by(id: params[:id])
+    @shopping_list.destroy
+    render json: { message: "Item removed from List" }
+  end
 end

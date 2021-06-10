@@ -24,5 +24,6 @@ Rails.application.routes.draw do
 
     get "/shopping_list" => "shopping_list#index"
     post "/shopping_list" => "shopping_list#create"
+    delete "/shopping_list/:id" => "shopping_list#delete"
   end
 end
