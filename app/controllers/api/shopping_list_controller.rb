@@ -10,7 +10,12 @@ class Api::ShoppingListController < ApplicationController
       unit: params[:unit],
       amount: params[:amount],
     )
+
     @shopping_list.save
+    @ingredient = Ingredient.find_by(name: @shopping_list.name)
+    @shopping_list.ingredient_id = @ingredient.id
+    @shopping_list.save
+
     render "show.json.jb"
   end
 
