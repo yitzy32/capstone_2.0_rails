@@ -1,6 +1,9 @@
 class Api::SearchRecipesController < ApplicationController
   def index
-    response = HTTP.get("https://api.spoonacular.com/recipes/complexSearch?query=#{params[:search]}&fillIngredients=true&instructionsRequired=true&addRecipeInformation=true&apiKey=#{Rails.application.credentials.spoonacular_api[:api_key]}").to_s
+    if params[:search].count(" ") > 0
+      params[:search] = params[:search].gsub(" ", "-")
+    end
+    response = HTTP.get("https://api.spoonacular.com/recipes/complexSearch?query=#{params[:search]}&fillIngredients=true&instructionsRequired=true&addRecipeInformation=true&number=10&apiKey=#{Rails.application.credentials.spoonacular_api[:api_key]}").to_s
     @data = JSON.parse(response)
     @recipes = []
     @data["results"].each do |recipe|
@@ -66,7 +69,6 @@ class Api::SearchRecipesController < ApplicationController
       user_id: current_user.id,
     )
     @recipe.save
-
     @data["extendedIngredients"].each do |extended_ingredient|
       @ingredient = Ingredient.find_by(name: extended_ingredient["name"])
       if @ingredient == nil
