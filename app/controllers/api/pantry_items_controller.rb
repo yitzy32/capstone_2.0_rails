@@ -24,6 +24,20 @@ class Api::PantryItemsController < ApplicationController
     render "show.json.jb"
   end
 
+  def update
+    @shopping_list = ShoppingList.all
+    @shopping_list.each do |item|
+      @pantry_item = PantryItem.find_by(ingredient_id: item.ingredient_id)
+      amount_in_pantry_now = @pantry_item.current_amount
+      @pantry_item.current_amount += amount_in_pantry_now
+      @pantry_item.save
+      @pantry_item.starting_amount = @pantry_item.current_amount
+      @pantry_item.save
+      item.destroy
+    end
+    render json: { message: "updated. shopping list restarted." }
+  end
+
   def destroy
     @pantry_item = PantryItem.find_by(id: params[:id])
     @pantry_item.destroy
