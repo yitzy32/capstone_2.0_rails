@@ -26,11 +26,23 @@ class Api::PantryItemsController < ApplicationController
 
   def update
     @shopping_list = ShoppingList.all
+    # ap @shopping_list
     @shopping_list.each do |item|
       @pantry_item = PantryItem.find_by(ingredient_id: item.ingredient_id)
+      ap "the original @pantry_item.current_amount:"
+      ap @pantry_item.current_amount
       amount_in_pantry_now = @pantry_item.current_amount
-      @pantry_item.current_amount += amount_in_pantry_now
+      ap "amount_in_pantry_now this amount saved to be added later"
+      ap amount_in_pantry_now
+      ap "^^^^ amount_in_pantry_now ^^^^^"
+      ap item.amount
+      @pantry_item.current_amount = @pantry_item.current_amount + amount_in_pantry_now
+      ap " the wana be multiplication @pantry_item.current_amount += amount_in_pantry_now:"
+      ap @pantry_item.current_amount += amount_in_pantry_now
       @pantry_item.save
+      ap "new updated @pantry_item.current_amount"
+      ap @pantry_item.current_amount
+      ap "^^^^ @pantry_item.current_amount ^^^^^"
       @pantry_item.starting_amount = @pantry_item.current_amount
       @pantry_item.save
       item.destroy
